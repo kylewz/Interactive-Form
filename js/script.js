@@ -23,6 +23,7 @@ shirtColorSelector.disabled = true;
 // Color options available dependendent on chosen shirt design
 shirtDesignsSelector.addEventListener('change', (e) => {
   shirtColorSelector.disabled = false;
+  let defaultColorSelected = false;
 
   for (let i = 0; i < shirtColorOptions.length; i++) {
     const shirtDesignSelected = e.target.value;
@@ -30,6 +31,11 @@ shirtDesignsSelector.addEventListener('change', (e) => {
 
     if (colorForShirtDesign === shirtDesignSelected) {
       shirtColorOptions[i].hidden = false;
+
+      if (!defaultColorSelected) {
+        shirtColorOptions[i].selected = true;
+        defaultColorSelected = true;
+      }
     } else {
       shirtColorOptions[i].hidden = true;
     }
