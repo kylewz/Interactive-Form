@@ -4,6 +4,8 @@ const jobRoleSelector = document.getElementById('title');
 const shirtDesignsSelector = document.getElementById('design');
 const shirtColorSelector = document.getElementById('color');
 const shirtColorOptions = document.querySelectorAll('#color option');
+const activitiesFieldset = document.getElementById('activities');
+const activitiesOptions = document.querySelectorAll('#activities input');
 
 // Default focus on name input on page load
 nameField.focus();
@@ -40,4 +42,19 @@ shirtDesignsSelector.addEventListener('change', (e) => {
       shirtColorOptions[i].hidden = true;
     }
   }
+});
+
+// Listens for changes to add activity cost for those that are checked
+activitiesFieldset.addEventListener('change', (e) => {
+  let activitiesCostTotal = document.getElementById('activities-cost');
+  let totalCost = 0;
+
+  for (const eachActivity of activitiesOptions) {
+    if (eachActivity.checked) {
+      const activityCost = parseInt(eachActivity.dataset.cost);
+      totalCost += activityCost;
+    }
+  }
+
+  activitiesCostTotal.innerHTML = `Total: \$${totalCost}`;
 });
