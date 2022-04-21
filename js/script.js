@@ -62,22 +62,22 @@ activitiesFieldset.addEventListener('change', (e) => {
 // Sets payment method to credit card selection as default
 const paymentSelect = document.getElementById('payment');
 const paymentSelectionOptions = document.querySelectorAll('#payment option');
-paymentSelectionOptions[1].selected = true;
-
 const creditCardFields = document.getElementById('credit-card');
 const paypalFields = document.getElementById('paypal');
 const bitcoinField = document.getElementById('bitcoin');
 
+// Display Credit card payment option by default
+paymentSelectionOptions[1].selected = true;
 creditCardFields.style.display = '';
 paypalFields.style.display = 'none';
 bitcoinField.style.display = 'none';
 
 paymentSelect.addEventListener('change', (e) => {
   const selectedPaymentValue = e.target.value;
-  console.log('Value is ' + selectedPaymentValue);
-  const paymentDivs = document.querySelectorAll('.payment-methods div');
   const mainPaymentDivBox = 'payment-method-box';
+  const paymentDivs = document.querySelectorAll('.payment-methods > div');
 
+  // Display only relevant payment fileds per payment method selected
   for (const thisDiv of paymentDivs) {
     if (thisDiv.id === selectedPaymentValue) {
       thisDiv.style.display = '';
