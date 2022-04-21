@@ -1,4 +1,6 @@
+const form = document.querySelector('form');
 const nameField = document.getElementById('name');
+const emailField = document.getElementById('email');
 const otherJobRoleField = document.getElementById('other-job-role');
 const jobRoleSelector = document.getElementById('title');
 const shirtDesignsSelector = document.getElementById('design');
@@ -77,14 +79,33 @@ paymentSelect.addEventListener('change', (e) => {
   const mainPaymentDivBox = 'payment-method-box';
   const paymentDivs = document.querySelectorAll('.payment-methods > div');
 
-  // Display only relevant payment fileds per payment method selected
-  for (const thisDiv of paymentDivs) {
-    if (thisDiv.id === selectedPaymentValue) {
-      thisDiv.style.display = '';
-    } else if (thisDiv.className === mainPaymentDivBox) {
-      thisDiv.style.display = '';
+  // Display only relevant payment fields per payment method selected
+  for (const div of paymentDivs) {
+    if (div.id === selectedPaymentValue) {
+      div.style.display = '';
+    } else if (div.className === mainPaymentDivBox) {
+      div.style.display = '';
     } else {
-      thisDiv.style.display = 'none';
+      div.style.display = 'none';
     }
+  }
+});
+
+const nameValidator = () => {
+  const nameValue = nameField.value;
+  console.log(`Name value is: ${nameValue}`);
+  const nameIsValid = /.+/i.test(nameValue);
+  console.log(`Validity: ${nameIsValid}`);
+  return nameIsValid;
+};
+
+/* const emailIsValid = () => {
+  const emailValue = 
+  return true;
+} */
+
+form.addEventListener('submit', (e) => {
+  if (!nameValidator()) {
+    e.preventDefault();
   }
 });
