@@ -94,18 +94,21 @@ paymentSelect.addEventListener('change', (e) => {
 const nameValidator = () => {
   const nameValue = nameField.value;
   console.log(`Name value is: ${nameValue}`);
-  const nameIsValid = /.+/i.test(nameValue);
+  const nameIsValid = /.+/.test(nameValue);
   console.log(`Validity: ${nameIsValid}`);
   return nameIsValid;
 };
 
-/* const emailIsValid = () => {
-  const emailValue = 
-  return true;
-} */
+const emailValidator = () => {
+  const emailValue = emailField.value;
+  const emailIsValid = /^[^@]+@[^@.]+\.com$/i.test(emailValue);
+  console.log('Email is: ' + emailIsValid);
+  return emailIsValid;
+};
 
 form.addEventListener('submit', (e) => {
-  if (!nameValidator()) {
+  if (!nameValidator() || !emailValidator()) {
+    console.log('Preventing pageload');
     e.preventDefault();
   }
 });
