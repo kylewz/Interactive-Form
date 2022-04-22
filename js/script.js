@@ -158,47 +158,56 @@ const activitiesValidator = () => {
 
 // Validate Credit Card Number is 13-16 digits
 const creditCardNumberValidator = () => {
-  const cardNumber = document.getElementById('cc-num');
-  const cardNumberValue = cardNumber.value;
-  const cardNumIsValid = /^\d{13,16}$/.test(cardNumberValue);
+  if (paymentSelect.value === 'credit-card') {
+    const cardNumber = document.getElementById('cc-num');
+    const cardNumberValue = cardNumber.value;
+    const cardNumIsValid = /^\d{13,16}$/.test(cardNumberValue);
 
-  if (cardNumIsValid) {
-    hideValidationHint(cardNumber);
-  } else {
-    showValidationHint(cardNumber);
+    if (cardNumIsValid) {
+      hideValidationHint(cardNumber);
+    } else {
+      showValidationHint(cardNumber);
+    }
+
+    return cardNumIsValid;
   }
-
-  return cardNumIsValid;
+  return true;
 };
 
 // Validate zip code is 5 digits
 const zipCodeValidator = () => {
-  const zipCodeField = document.getElementById('zip');
-  const zipCodeValue = zipCodeField.value;
-  const zipCodeIsValid = /^\d{5}$/.test(zipCodeValue);
+  if (paymentSelect.value === 'credit-card') {
+    const zipCodeField = document.getElementById('zip');
+    const zipCodeValue = zipCodeField.value;
+    const zipCodeIsValid = /^\d{5}$/.test(zipCodeValue);
 
-  if (zipCodeIsValid) {
-    hideValidationHint(zipCodeField);
-  } else {
-    showValidationHint(zipCodeField);
+    if (zipCodeIsValid) {
+      hideValidationHint(zipCodeField);
+    } else {
+      showValidationHint(zipCodeField);
+    }
+
+    return zipCodeIsValid;
   }
-
-  return zipCodeIsValid;
+  return true;
 };
 
 // Validate CVV is 3 digits
 const cvvValidator = () => {
-  const cvvField = document.getElementById('cvv');
-  const cvvValue = cvvField.value;
-  const cvvIsValid = /^\d{3}$/.test(cvvValue);
+  if (paymentSelect.value === 'credit-card') {
+    const cvvField = document.getElementById('cvv');
+    const cvvValue = cvvField.value;
+    const cvvIsValid = /^\d{3}$/.test(cvvValue);
 
-  if (cvvIsValid) {
-    hideValidationHint(cvvField);
-  } else {
-    showValidationHint(cvvField);
+    if (cvvIsValid) {
+      hideValidationHint(cvvField);
+    } else {
+      showValidationHint(cvvField);
+    }
+
+    return cvvIsValid;
   }
-
-  return cvvIsValid;
+  return true;
 };
 
 // Listener on submit event to validate required form fields
