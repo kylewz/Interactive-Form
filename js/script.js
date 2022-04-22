@@ -118,7 +118,7 @@ const activitiesValidator = () => {
   return false;
 };
 
-// Validate Credit Card Number is 13-16 numbers
+// Validate Credit Card Number is 13-16 digits
 const creditCardNumberValidator = () => {
   const cardNumber = document.getElementById('cc-num');
   const cardNumberValue = cardNumber.value;
@@ -157,4 +157,19 @@ form.addEventListener('submit', (e) => {
   ) {
     e.preventDefault();
   }
+});
+
+// Adds listener to activities fields to highlight input when focused, remove
+// when blurred
+/* Upon researching if 'focus' event bubbles, found 'focusin' and 'focusout' are
+  bubbling events and hence are used below: 
+  (https://developer.mozilla.org/en-US/docs/Web/API/Element/focus_event)*/
+activitiesFieldset.addEventListener('focusin', (e) => {
+  const checkboxParentLabel = e.target.parentNode;
+  checkboxParentLabel.classList.add('focus');
+});
+
+activitiesFieldset.addEventListener('focusout', (e) => {
+  const checkboxParentLabel = e.target.parentNode;
+  checkboxParentLabel.classList.remove('focus');
 });
