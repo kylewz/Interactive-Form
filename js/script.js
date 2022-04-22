@@ -7,6 +7,7 @@ const shirtDesignsSelector = document.getElementById('design');
 const shirtColorSelector = document.getElementById('color');
 const shirtColorOptions = document.querySelectorAll('#color option');
 const activitiesFieldset = document.getElementById('activities');
+const activitiesBox = document.getElementById('activities-box');
 const activitiesOptions = document.querySelectorAll('#activities input');
 
 // Default focus on name input on page load
@@ -96,6 +97,12 @@ const nameValidator = () => {
   const nameValue = nameField.value;
   const nameIsValid = /.+/.test(nameValue);
 
+  if (nameIsValid) {
+    hideValidationHint(nameField);
+  } else {
+    showValidationHint(nameField);
+  }
+
   return nameIsValid;
 };
 
@@ -104,6 +111,12 @@ const emailValidator = () => {
   const emailValue = emailField.value;
   const emailIsValid = /^[^@]+@[^@.]+\.com$/i.test(emailValue);
 
+  if (emailIsValid) {
+    hideValidationHint(emailField);
+  } else {
+    showValidationHint(emailField);
+  }
+
   return emailIsValid;
 };
 
@@ -111,10 +124,12 @@ const emailValidator = () => {
 const activitiesValidator = () => {
   for (const activity of activitiesOptions) {
     if (activity.checked) {
+      hideValidationHint(activitiesBox);
       return true;
     }
   }
 
+  showValidationHint(activitiesBox);
   return false;
 };
 
@@ -123,6 +138,12 @@ const creditCardNumberValidator = () => {
   const cardNumber = document.getElementById('cc-num');
   const cardNumberValue = cardNumber.value;
   const cardNumIsValid = /^\d{13,16}$/.test(cardNumberValue);
+
+  if (cardNumIsValid) {
+    hideValidationHint(cardNumber);
+  } else {
+    showValidationHint(cardNumber);
+  }
 
   return cardNumIsValid;
 };
@@ -133,6 +154,12 @@ const zipCodeValidator = () => {
   const zipCodeValue = zipCodeField.value;
   const zipCodeIsValid = /^\d{5}$/.test(zipCodeValue);
 
+  if (zipCodeIsValid) {
+    hideValidationHint(zipCodeField);
+  } else {
+    showValidationHint(zipCodeField);
+  }
+
   return zipCodeIsValid;
 };
 
@@ -142,20 +169,30 @@ const cvvValidator = () => {
   const cvvValue = cvvField.value;
   const cvvIsValid = /^\d{3}$/.test(cvvValue);
 
+  if (cvvIsValid) {
+    hideValidationHint(cvvField);
+  } else {
+    showValidationHint(cvvField);
+  }
+
   return cvvIsValid;
 };
 
 // Listener on submit event to validate required form fields
 form.addEventListener('submit', (e) => {
-  if (
-    !nameValidator() ||
-    !emailValidator() ||
-    !activitiesValidator() ||
-    !creditCardNumberValidator() ||
-    !zipCodeValidator() ||
-    !cvvValidator()
-  ) {
-    e.preventDefault();
+  let formValidators = [
+    nameValidator,
+    emailValidator,
+    activitiesValidator,
+    creditCardNumberValidator,
+    zipCodeValidator,
+    cvvValidator,
+  ];
+
+  for (const validator of formValidators) {
+    if (!validator()) {
+      e.preventDefault();
+    }
   }
 });
 
@@ -173,3 +210,20 @@ activitiesFieldset.addEventListener('focusout', (e) => {
   const checkboxParentLabel = e.target.parentNode;
   checkboxParentLabel.classList.remove('focus');
 });
+
+// Functions to add or remove 'valid' and 'not-valid' classs to parent elements
+// Functions also set span element to display, shows validation hint
+// Inspired from Treehouse exercise 'Input Validation Error Indications'
+function hideValidationHint(element) {
+  const parent = element.parentElement;
+  parent.classList.add('valid');
+  parent.classList.remove('not-valid');
+  parent.lastElementChild.style.display = 'none';
+}
+
+function showValidationHint(element) {
+  const parent = element.parentElement;
+  parent.classList.add('not-valid');
+  parent.classList.remove('valid');
+  parent.lastElementChild.style.display = 'inline';
+}
