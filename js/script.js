@@ -74,12 +74,12 @@ creditCardFields.style.display = '';
 paypalFields.style.display = 'none';
 bitcoinField.style.display = 'none';
 
+// Display only relevant payment fields per payment method selected
 paymentSelect.addEventListener('change', (e) => {
   const selectedPaymentValue = e.target.value;
   const mainPaymentDivBox = 'payment-method-box';
   const paymentDivs = document.querySelectorAll('.payment-methods > div');
 
-  // Display only relevant payment fields per payment method selected
   for (const div of paymentDivs) {
     if (div.id === selectedPaymentValue) {
       div.style.display = '';
@@ -145,7 +145,7 @@ const cvvValidator = () => {
   return cvvIsValid;
 };
 
-// Listener on submit to validate required fields
+// Listener on submit event to validate required form fields
 form.addEventListener('submit', (e) => {
   if (
     !nameValidator() ||
