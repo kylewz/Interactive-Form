@@ -91,24 +91,70 @@ paymentSelect.addEventListener('change', (e) => {
   }
 });
 
+// Validate name field is not empty
 const nameValidator = () => {
   const nameValue = nameField.value;
-  console.log(`Name value is: ${nameValue}`);
   const nameIsValid = /.+/.test(nameValue);
-  console.log(`Validity: ${nameIsValid}`);
+
   return nameIsValid;
 };
 
+// Validate email value
 const emailValidator = () => {
   const emailValue = emailField.value;
   const emailIsValid = /^[^@]+@[^@.]+\.com$/i.test(emailValue);
-  console.log('Email is: ' + emailIsValid);
+
   return emailIsValid;
 };
 
+// Validates at least one activity checked
+const activitiesValidator = () => {
+  for (const activity of activitiesOptions) {
+    if (activity.checked) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
+// Validate Credit Card Number is 13-16 numbers
+const creditCardNumberValidator = () => {
+  const cardNumber = document.getElementById('cc-num');
+  const cardNumberValue = cardNumber.value;
+  const cardNumIsValid = /^\d{13,16}$/.test(cardNumberValue);
+
+  return cardNumIsValid;
+};
+
+// Validate zip code is 5 digits
+const zipCodeValidator = () => {
+  const zipCodeField = document.getElementById('zip');
+  const zipCodeValue = zipCodeField.value;
+  const zipCodeIsValid = /^\d{5}$/.test(zipCodeValue);
+
+  return zipCodeIsValid;
+};
+
+// Validate CVV is 3 digits
+const cvvValidator = () => {
+  const cvvField = document.getElementById('cvv');
+  const cvvValue = cvvField.value;
+  const cvvIsValid = /^\d{3}$/.test(cvvValue);
+
+  return cvvIsValid;
+};
+
+// Listener on submit to validate required fields
 form.addEventListener('submit', (e) => {
-  if (!nameValidator() || !emailValidator()) {
-    console.log('Preventing pageload');
+  if (
+    !nameValidator() ||
+    !emailValidator() ||
+    !activitiesValidator() ||
+    !creditCardNumberValidator() ||
+    !zipCodeValidator() ||
+    !cvvValidator()
+  ) {
     e.preventDefault();
   }
 });
