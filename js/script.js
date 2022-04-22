@@ -1,14 +1,44 @@
 const form = document.querySelector('form');
+
+// Basic Info Fields
 const nameField = document.getElementById('name');
 const emailField = document.getElementById('email');
 const otherJobRoleField = document.getElementById('other-job-role');
 const jobRoleSelector = document.getElementById('title');
+
+// T-Shirt Info Fields
 const shirtDesignsSelector = document.getElementById('design');
 const shirtColorSelector = document.getElementById('color');
 const shirtColorOptions = document.querySelectorAll('#color option');
+
+// 'Register for Activities' Fields
 const activitiesFieldset = document.getElementById('activities');
 const activitiesBox = document.getElementById('activities-box');
 const activitiesOptions = document.querySelectorAll('#activities input');
+
+// Payment Info Fields
+const paymentSelect = document.getElementById('payment');
+const paymentSelectionOptions = document.querySelectorAll('#payment option');
+const creditCardFields = document.getElementById('credit-card');
+const paypalFields = document.getElementById('paypal');
+const bitcoinField = document.getElementById('bitcoin');
+
+// Functions to add or remove 'valid' and 'not-valid' classs to parent elements
+// Functions also set span element to display, shows validation hint
+// Inspired from Treehouse exercise 'Input Validation Error Indications'
+function hideValidationHint(element) {
+  const parent = element.parentElement;
+  parent.classList.add('valid');
+  parent.classList.remove('not-valid');
+  parent.lastElementChild.style.display = 'none';
+}
+
+function showValidationHint(element) {
+  const parent = element.parentElement;
+  parent.classList.add('not-valid');
+  parent.classList.remove('valid');
+  parent.lastElementChild.style.display = 'inline';
+}
 
 // Default focus on name input on page load
 nameField.focus();
@@ -61,13 +91,6 @@ activitiesFieldset.addEventListener('change', (e) => {
 
   activitiesCostTotal.innerHTML = `Total: \$${totalCost}`;
 });
-
-// Sets payment method to credit card selection as default
-const paymentSelect = document.getElementById('payment');
-const paymentSelectionOptions = document.querySelectorAll('#payment option');
-const creditCardFields = document.getElementById('credit-card');
-const paypalFields = document.getElementById('paypal');
-const bitcoinField = document.getElementById('bitcoin');
 
 // Display Credit card payment option by default
 paymentSelectionOptions[1].selected = true;
@@ -210,20 +233,3 @@ activitiesFieldset.addEventListener('focusout', (e) => {
   const checkboxParentLabel = e.target.parentNode;
   checkboxParentLabel.classList.remove('focus');
 });
-
-// Functions to add or remove 'valid' and 'not-valid' classs to parent elements
-// Functions also set span element to display, shows validation hint
-// Inspired from Treehouse exercise 'Input Validation Error Indications'
-function hideValidationHint(element) {
-  const parent = element.parentElement;
-  parent.classList.add('valid');
-  parent.classList.remove('not-valid');
-  parent.lastElementChild.style.display = 'none';
-}
-
-function showValidationHint(element) {
-  const parent = element.parentElement;
-  parent.classList.add('not-valid');
-  parent.classList.remove('valid');
-  parent.lastElementChild.style.display = 'inline';
-}
